@@ -82,4 +82,11 @@ class Sensor:
             "humid": self.humid,
             "CO2": self.CO2
         }
-
+    
+    # string representation 
+    def __str__(self) -> str:
+        return f"Sensor {self.id}:" +
+               f"\tTemparature: {self.temp} Degrees Celsius" +
+               f"\tWind: {self.wind}mph" +
+               f"\tRelative Humidity: {self.humid}%" +
+               f"\tCO2 Level: {self.CO2}ppm"
