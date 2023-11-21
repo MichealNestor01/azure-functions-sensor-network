@@ -6,7 +6,8 @@ import logging
 app = func.FunctionApp()
 
 @app.route(route="DataFunction", auth_level=func.AuthLevel.ANONYMOUS)
-def DataFunction(req: func.HttpRequest) -> func.HttpResponse:
+@app.generic_output_binding(arg_name="sensorData", type="sql", CommandText="dbo.SensorData", ConnectionStringSetting="SqlConnectionString")
+def DataFunction(req: func.HttpRequest, sensorData: func.Out[func.SqlRow]) -> func.HttpResponse:
     logging.info('Data Function encoutered a request')
 
     bad_request_response = func.HttpResponse(
@@ -33,10 +34,8 @@ def DataFunction(req: func.HttpRequest) -> func.HttpResponse:
             humid    = int(req_body.get('humid'))
             CO2      = int(req_body.get('CO2'))
         except TypeError:
-            logging.info('Type error')
             return bad_request_response
         except ValueError:
-            logging.info('value error')
             return bad_request_response
         else:
             # check range requirements
@@ -48,17 +47,28 @@ def DataFunction(req: func.HttpRequest) -> func.HttpResponse:
             ):  return bad_request_response
 
     # attempt to update the databse with this data
-    database_unavailable_response = func.HttpResponse(
-        body=f"Unable to reach databse",
-        status_code=503
-    )  
-    if False: 
-        return database_unavailable_response
+    try:
+        # create a func.SqlRow instance
+        sql_row = func.SqlRow({
+            "timestamp":timestamp,
+            "id":sensorId,
+            "temp":temp,
+            "wind":wind,
+            "humid":humid,
+            "CO2":CO2
+        })
+        sensorData.set(sql_row)
+    except Exception as e:
+        logging.error(f"Database access error: {e}")
+        return func.HttpResponse(
+            body="Unable to ammend database",
+            status_code=503
+        )
 
     # success 
-    success_response = func.HttpResponse(
+    return func.HttpResponse(
         body=f"Sensor {sensorId}'s data was successfully " +
             "recorded in the database",
         status_code=200
     )
-    return success_response
+     
