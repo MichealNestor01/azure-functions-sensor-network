@@ -7,6 +7,14 @@
       "direction": "in",
       "tableName": "dbo.SensorData",
       "connectionStringSetting": "SqlConnectionString"
-    }
+    },
+    {
+      "name": "sensorData",
+      "type": "sql",
+      "direction": "in",
+      "commandText": "select * from SensorData",
+      "commandType": "Text",
+      "connectionStringSetting": "SqlConnectionString"
+  }
   ]
 }
