@@ -7,10 +7,10 @@ import time
 URL = "https://distributed-systems-coursework-data-function.azurewebsites.net/api/datafunction"
 TOTAL_SENSORS = 20
 # start time is 9am on 15/11/2023, sensors produce data once an hour
-# sensors were active for 240 hours
+# sensors were active for 120 hours (5 days)
 START_TIME = datetime(2023, 11, 15, 9)
 INTERVAL = timedelta(minutes=60)
-TOTAL_HOURS = 240
+TOTAL_HOURS = 120
 
 def report_to_data_function(sensor: Sensor, timestamp: datetime) -> None:
     print(f"Sending data from sensor {sensor.id} at {timestamp.strftime('%Y-%m-%d %H:%M:%S')} to DataFunction")
