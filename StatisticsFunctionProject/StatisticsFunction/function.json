@@ -2,19 +2,11 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
-      "authLevel": "Anonymous",
-      "type": "httpTrigger",
+      "name": "sensorDataChanges",
+      "type": "sqlTrigger",
       "direction": "in",
-      "name": "req",
-      "methods": [
-        "get",
-        "post"
-      ]
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "$return"
+      "tableName": "dbo.SensorData",
+      "connectionStringSetting": "SqlConnectionString"
     }
   ]
 }
