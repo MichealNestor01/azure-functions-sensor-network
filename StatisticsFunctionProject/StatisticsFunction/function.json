@@ -6,7 +6,7 @@
       "type": "sqlTrigger",
       "direction": "in",
       "tableName": "dbo.SensorData",
-      "connectionStringSetting": "SqlConnectionString"
+      "connectionStringSetting": "sqlConnectionString"
     },
     {
       "name": "sensorData",
@@ -14,7 +14,7 @@
       "direction": "in",
       "commandText": "select * from SensorData",
       "commandType": "Text",
-      "connectionStringSetting": "SqlConnectionString"
+      "connectionStringSetting": "sqlConnectionString"
   }
   ]
 }
