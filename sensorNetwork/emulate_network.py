@@ -9,7 +9,7 @@ TOTAL_SENSORS = 20
 # sensors were active for 10 hours
 START_TIME = datetime(2023, 11, 15, 9)
 INTERVAL = timedelta(minutes=60)
-TOTAL_HOURS = 24
+TOTAL_HOURS = 48
 
 def report_to_data_function(sensor: Sensor, timestamp: datetime) -> None:
     print(f"Sending data from sensor {sensor.id} at {timestamp.strftime('%Y-%m-%d %H:%M:%S')} to DataFunction")
